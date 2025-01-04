@@ -14,7 +14,7 @@ from langchain_core.messages import SystemMessage, AIMessage, HumanMessage, Tool
 
 load_dotenv()
 
-model = os.getenv('LLM_MODEL', 'gpt-4o')
+model = os.getenv('LLM_MODEL', 'gpt-3.5-turbo')
 
 configuration = asana.Configuration()
 configuration.access_token = os.getenv('ASANA_ACCESS_TOKEN', '')
@@ -270,7 +270,7 @@ def main():
 
     # Display chat messages from history on app rerun
     for message in st.session_state.messages:
-        message_json = json.loads(message.json())
+        message_json = json.loads(message.model_dump_json())
         message_type = message_json["type"]
         if message_type in ["human", "ai", "system"]:
             with st.chat_message(message_type):
